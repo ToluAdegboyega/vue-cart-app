@@ -4,9 +4,9 @@
     <div class="cart-body">
       <div v-if="totalPrice !== 0" class="container mb-5">
         <h4 class="my-4 my-cart">My Cart</h4>
-        <div class="d-flex my-3" style="justify-content: space-between;">
+        <div class="d-flex my-3" style="justify-content: space-between">
           <h4 class="fw-600">Summary</h4>
-          <h4 class="fw-600" style="margin-right: 49%;">Cart</h4>
+          <h4 class="fw-600" style="margin-right: 49%">Cart</h4>
         </div>
         <div class="d-flex">
           <div v-show="totalPrice !== 0" class="row" style="width: 50%">
@@ -18,26 +18,47 @@
               <h6>Subtotal:</h6>
             </div>
             <div class="col-md-4">
-              <h6>Rs {{totalPrice}}</h6>
+              <h6>Rs {{ totalPrice }}</h6>
               <h6>SWEETDISH</h6>
               <h6>Rs 50</h6>
               <div class="my-3 line w-60"></div>
-              <h6>Rs {{totalPrice + 50}}</h6>
+              <h6>Rs {{ totalPrice + 50 }}</h6>
             </div>
           </div>
           <div class="row" style="width: 50%">
             <div style="max-width: 70%" class="col-md-12">
               <ul style="padding: 0">
-                <li v-for="items in cartItems" :key="items.id" style="list-style: none;">
+                <li
+                  v-for="items in cartItems"
+                  :key="items.id"
+                  style="list-style: none"
+                >
                   <div class="cart-items">
-                    <img :src="items.url" width="50px" height="50px" style="border-radius: 50%" />
-                    <h6 class="mt-15">{{items.name}}</h6>
+                    <img
+                      :src="items.url"
+                      width="50px"
+                      height="50px"
+                      style="border-radius: 50%"
+                    />
+                    <h6 class="mt-15">{{ items.name }}</h6>
                     <div class="d-flex mt-10">
-                      <button v-on:click="removeItem(items)" class="add" type="button">-</button>
-                      <span class="cart-quantity">{{items.quantity}}</span>
-                      <button v-on:click="addToCart(items)" class="remove" type="button">+</button>
+                      <button
+                        v-on:click="removeItem(items)"
+                        class="add"
+                        type="button"
+                      >
+                        -
+                      </button>
+                      <span class="cart-quantity">{{ items.quantity }}</span>
+                      <button
+                        v-on:click="addToCart(items)"
+                        class="remove"
+                        type="button"
+                      >
+                        +
+                      </button>
                     </div>
-                    <h6 class="mt-15">{{items.price * items.quantity}}</h6>
+                    <h6 class="mt-15">{{ items.price * items.quantity }}</h6>
                   </div>
                   <div class="line"></div>
                 </li>
@@ -45,15 +66,22 @@
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-end" style="width: 80%; margin-top: 2%">
-          <button v-on:click="checkout" class="btn btn-primary" type="button">Checkout</button>
+        <div
+          class="d-flex justify-content-end"
+          style="width: 80%; margin-top: 2%"
+        >
+          <button v-on:click="checkout" class="btn btn-primary" type="button">
+            Checkout
+          </button>
         </div>
       </div>
       <div v-else class="container my-5" style="text-align: center">
         <img src="../assets/shopping-cart.png" width="200px" />
         <div class="mt-4">
           <h4 class="orange-red fw-600">Your cart is empty</h4>
-          <h5 class="darkblue fw-600">You can go to home page to view more food items.</h5>
+          <h5 class="darkblue fw-600">
+            You can go to home page to view more food items.
+          </h5>
         </div>
       </div>
     </div>
@@ -70,11 +98,11 @@ export default {
   name: "Cart",
   components: {
     Header,
-    Footer
+    Footer,
   },
   data() {
     return {
-      item: 0
+      item: 0,
     };
   },
   methods: {
@@ -86,11 +114,11 @@ export default {
     },
     checkout() {
       swal("Good job!", "Your order is placed successfully!", "success").then(
-        value => {
-          window.location.href = "/cart";
+        (value) => {
+          window.location.reload();
         }
       );
-    }
+    },
   },
   computed: {
     cartItems() {
@@ -98,12 +126,12 @@ export default {
     },
     totalPrice() {
       let price = 0;
-      this.$store.state.cartItems.map(el => {
+      this.$store.state.cartItems.map((el) => {
         price += el["quantity"] * el["price"];
       });
       return price;
-    }
-  }
+    },
+  },
 };
 </script>
 
